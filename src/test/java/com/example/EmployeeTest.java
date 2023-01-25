@@ -1,12 +1,11 @@
 package com.example;
 
-import org.assertj.core.api.AbstractBigDecimalAssert;
+
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.FactoryBasedNavigableListAssert.assertThat;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class EmployeeTest {
@@ -22,7 +21,7 @@ class EmployeeTest {
     void getIdShouldReturnOne() {
         var expected = employee.getId();
 
-        assertEquals(expected, "Robert Milicevic");
+        assertEquals("Robert Milicevic", expected);
     }
 
     @Test
@@ -40,7 +39,7 @@ class EmployeeTest {
     void getSalaryShouldReturn1000() {
         var expected = employee.getSalary();
 
-        assertEquals(expected, 1000);
+        assertEquals(1000, expected);
     }
 
     @Test
