@@ -45,7 +45,7 @@ class CalculatorTest {
     }
     @Test
     void addNewLineAndSemicolon(){
-        var result = calculator.Add("-1");
+        var result = calculator.Add("//;\n1;2");
 
         assertThat(result).isEqualTo(3);
     }
