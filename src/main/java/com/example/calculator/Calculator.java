@@ -1,8 +1,7 @@
 package com.example.calculator;
 
-import java.util.ArrayList;
+
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Calculator {
@@ -14,76 +13,72 @@ public class Calculator {
     public static int Add(String numbers) {
 
         List<String> numberList = new ArrayList<>();
+        List<String> newList;
 
-        int result = 0;
+        int result;
 
         numberList.add(numbers);
 
-        if (numbers.equals("")) {
-            return 0;
-        }
-
         negativeNumbers(numbers);
 
+        List<String> list = leavingJustNumbers(numberList);
 
-        List<String> list = numberList.stream()
+        newList = new ArrayList<>(list);
+
+        removingEmptyCharAfterRegexCleaning(newList);
+
+        result = getNumbersUnder1000AndSum(newList);
+
+
+        return result;
+    }
+
+    private static int getNumbersUnder1000AndSum(List<String> newList) {
+        int result;
+        result = newList.stream()
+               .filter(s -> Integer.parseInt(s) <= 1000)
+               .mapToInt(Integer::parseInt)
+               .sum();
+        return result;
+    }
+
+    private static void removingEmptyCharAfterRegexCleaning(List<String> newList) {
+        newList.removeIf(element -> element.equals(""));
+    }
+
+    private static List<String> leavingJustNumbers(List<String> numberList) {
+        return numberList.stream()
                 .flatMap(s -> Arrays.stream(s.split("//")))
                 .flatMap(s -> Arrays.stream(s.split("/")))
                 .flatMap(s -> Arrays.stream(s.split(",")))
                 .flatMap(s -> Arrays.stream(s.split("\n")))
                 .flatMap(s -> Arrays.stream(s.split(";")))
                 .flatMap(s -> Arrays.stream(s.split("\\[")))
-                .flatMap(s -> Arrays.stream(s.split("\\]")))
+                .flatMap(s -> Arrays.stream(s.split("]")))
                 .flatMap(s -> Arrays.stream(s.split("[*]")))
-                .flatMap(s -> Arrays.stream(s.split("[%]")))
                 .flatMap(s -> Arrays.stream(s.split("%")))
                 .flatMap(s -> Arrays.stream(s.split("[a-z]")))
                 .flatMap(s -> Arrays.stream(s.split("\\\\")))
                 .toList();
 
-
-        List<String> unmodifiableList = Collections.unmodifiableList(list);
-
-        List<String> newList = new ArrayList<>(unmodifiableList);
-
-
-        for (int i = 0; i < newList.size(); i++) {
-            if (newList.get(i).equals("")) {
-                newList.remove(i);
-                i--;
-            }
-        }
-
-
-
-        for (int i = 0; i < newList.size(); i++) {
-            if (Integer.parseInt(newList.get(i)) > 1000){
-                newList.remove(i);
-                i--;
-            } else {
-                result += Integer.parseInt(newList.get(i));
-            }
-        }
-
-
-        return result;
     }
 
     public static void negativeNumbers(String number) {
         if (number.contains("-")) {
             StringBuilder negative = getNegativeNumber(number);
-            throw new RuntimeException("Negatives " + negative + " not allowed");
+            throw new RuntimeException("Negatives " + negative + " not allowed"); //Throwing customer exception, not original!
         }
     }
+
 
     private static StringBuilder getNegativeNumber(String number) {
         StringBuilder negative = new StringBuilder();
 
-            negative.append("( ");
-            Stream.of(number.split(",|\\n"))
-                    .filter(s -> s.contains("-"))
-                    .forEach(s -> negative.append(s).append(" "));
-            negative.append(")");
+        negative.append("( ");
+        Stream.of(number.split("[,\\n]"))
+                .filter(s -> s.contains("-"))
+                .forEach(s -> negative.append(s).append(" "));
+        negative.append(")");
 
         return negative;
     }
