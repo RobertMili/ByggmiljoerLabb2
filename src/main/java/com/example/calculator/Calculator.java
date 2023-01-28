@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 public class Calculator {
 
     public static void main(String[] args) {
-        Add("-1");
+        Add("2,1001");
     }
 
     public static int Add(String numbers) {
@@ -45,12 +45,15 @@ public class Calculator {
             }
         }
 
-        for (String s : newList) {
-            System.out.println(s);
-        }
+
 
         for (int i = 0; i < newList.size(); i++) {
-            result += Integer.parseInt(newList.get(i));
+            if (Integer.parseInt(newList.get(i)) > 1000){
+                newList.remove(i);
+                i--;
+            } else {
+                result += Integer.parseInt(newList.get(i));
+            }
         }
 
 

@@ -61,4 +61,10 @@ class CalculatorTest {
               .hasMessageContaining("not")
               .hasMessageContaining("allowed");
     }
+    @Test
+    void numbersBiggerThan1000(){
+        var result = calculator.Add("2,1001");
+
+        assertThat(result).isEqualTo(2);
+    }
 }
