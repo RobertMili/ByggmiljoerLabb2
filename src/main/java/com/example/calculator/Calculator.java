@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 public class Calculator {
 
     public static void main(String[] args) {
-        Add("2,1001");
+        Add("2,1001,2,3,4");
     }
 
     public static int Add(String numbers) {
@@ -39,7 +39,6 @@ public class Calculator {
                 .flatMap(s -> Arrays.stream(s.split("%")))
                 .flatMap(s -> Arrays.stream(s.split("[a-z]")))
                 .flatMap(s -> Arrays.stream(s.split("\\\\")))
-
                 .toList();
 
 
@@ -48,13 +47,6 @@ public class Calculator {
         List<String> newList = new ArrayList<>(unmodifiableList);
 
 
-        newList= newList.stream()
-                .map(String::trim)
-                .collect(Collectors.toList());
-
-        for (String s : newList) {
-            System.out.println(s);
-        }
         for (int i = 0; i < newList.size(); i++) {
             if (newList.get(i).equals("")) {
                 newList.remove(i);

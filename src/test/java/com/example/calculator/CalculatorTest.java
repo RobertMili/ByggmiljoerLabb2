@@ -68,8 +68,20 @@ class CalculatorTest {
         assertThat(result).isEqualTo(2);
     }
     @Test
+    void testingMultiNumbers(){
+        var result = calculator.Add("2,1000002,1,1,2,10001,1,");
+
+        assertThat(result).isEqualTo(7);
+    }
+    @Test
     void addMultipleDelimiters(){
         var result = calculator.Add("//[*][%]\\n1*2%3");
+
+        assertThat(result).isEqualTo(6);
+    }
+    @Test
+    void multipleDelimitersWithLongerThenOneCharacter(){
+        var result = calculator.Add("//[***][%%%]\\n1***2%%%3");
 
         assertThat(result).isEqualTo(6);
     }
