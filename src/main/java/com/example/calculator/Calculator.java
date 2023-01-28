@@ -21,9 +21,9 @@ public class Calculator {
 
         negativeNumbers(numbers);
 
-        List<String> list = leavingJustNumbers(numberList);
+        List<String> list = cleaningToNumbers(numberList);
 
-        newList = new ArrayList<>(list);
+        newList = getStringsAvoidImmutableString(list);
 
         removingEmptyCharAfterRegexCleaning(newList);
 
@@ -31,6 +31,12 @@ public class Calculator {
 
 
         return result;
+    }
+
+    private static List<String> getStringsAvoidImmutableString(List<String> list) {
+        List<String> newList;
+        newList = new ArrayList<>(list);
+        return newList;
     }
 
     private static int getNumbersUnder1000AndSum(List<String> newList) {
@@ -46,7 +52,7 @@ public class Calculator {
         newList.removeIf(element -> element.equals(""));
     }
 
-    private static List<String> leavingJustNumbers(List<String> numberList) {
+    private static List<String> cleaningToNumbers(List<String> numberList) {
         return numberList.stream()
                 .flatMap(s -> Arrays.stream(s.split("//")))
                 .flatMap(s -> Arrays.stream(s.split("/")))
