@@ -2,6 +2,7 @@ package com.example.calculator;
 
 import java.util.ArrayList;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Calculator {
@@ -31,6 +32,14 @@ public class Calculator {
                 .flatMap(s -> Arrays.stream(s.split(",")))
                 .flatMap(s -> Arrays.stream(s.split("\n")))
                 .flatMap(s -> Arrays.stream(s.split(";")))
+                .flatMap(s -> Arrays.stream(s.split("\\[")))
+                .flatMap(s -> Arrays.stream(s.split("\\]")))
+                .flatMap(s -> Arrays.stream(s.split("[*]")))
+                .flatMap(s -> Arrays.stream(s.split("[%]")))
+                .flatMap(s -> Arrays.stream(s.split("%")))
+                .flatMap(s -> Arrays.stream(s.split("[a-z]")))
+                .flatMap(s -> Arrays.stream(s.split("\\\\")))
+
                 .toList();
 
 
@@ -38,6 +47,14 @@ public class Calculator {
 
         List<String> newList = new ArrayList<>(unmodifiableList);
 
+
+        newList= newList.stream()
+                .map(String::trim)
+                .collect(Collectors.toList());
+
+        for (String s : newList) {
+            System.out.println(s);
+        }
         for (int i = 0; i < newList.size(); i++) {
             if (newList.get(i).equals("")) {
                 newList.remove(i);

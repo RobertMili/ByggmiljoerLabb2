@@ -67,4 +67,10 @@ class CalculatorTest {
 
         assertThat(result).isEqualTo(2);
     }
+    @Test
+    void addMultipleDelimiters(){
+        var result = calculator.Add("//[*][%]\\n1*2%3");
+
+        assertThat(result).isEqualTo(6);
+    }
 }
