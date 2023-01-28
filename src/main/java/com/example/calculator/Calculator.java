@@ -1,17 +1,17 @@
 package com.example.calculator;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.*;
+import java.util.stream.Stream;
 
 public class Calculator {
 
     public static void main(String[] args) {
-        Add("//;\n1;2");
+        Add("-1");
     }
 
     public static int Add(String numbers) {
-        String[] test = numbers.split(";\\n");
+
         List<String> numberList = new ArrayList<>();
 
         int result = 0;
@@ -21,6 +21,10 @@ public class Calculator {
         if (numbers.equals("")) {
             return 0;
         }
+
+        negativeNumbers(numbers);
+
+
         List<String> list = numberList.stream()
                 .flatMap(s -> Arrays.stream(s.split("//")))
                 .flatMap(s -> Arrays.stream(s.split("/")))
@@ -46,11 +50,31 @@ public class Calculator {
         }
 
         for (int i = 0; i < newList.size(); i++) {
-            result+= Integer.parseInt(newList.get(i));
+            result += Integer.parseInt(newList.get(i));
         }
 
+
         return result;
+    }
 
+    public static void negativeNumbers(String number) {
+        if (number.contains("-")) {
+            StringBuilder negative = getNegativeNumber(number);
+            throw new RuntimeException("Negatives " + negative + " not allowed");
+        }
+    }
 
+    private static StringBuilder getNegativeNumber(String number) {
+        StringBuilder negative = new StringBuilder();
+
+            negative.append("( ");
+            Stream.of(number.split(",|\\n"))
+                    .filter(s -> s.contains("-"))
+                    .forEach(s -> negative.append(s).append(" "));
+            negative.append(")");
+
+        return negative;
     }
 }
+
+
