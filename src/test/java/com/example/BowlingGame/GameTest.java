@@ -13,25 +13,32 @@ import static org.assertj.core.api.Assertions.assertThat;
 class GameTest {
 
     Game game = new Game();
-    @Order(1)
-    @Test
-    void addFirstTestExpected7(){
 
-        game.roll(2);
-        game.roll(5);
-
-        assertThat(game.score()).isEqualTo(7);
+    private void fullGame(int rolls, int pins){
+        for (int i = 0; i <rolls; i++) {
+            game.roll(pins);
+        }
     }
 
 
-    @Order(2)
+    @Order(1)
     @Test
-    void addSecondTestExpected3(){
+    void addFirstTestExpected7(){
 
         game.roll(1);
         game.roll(2);
 
         assertThat(game.score()).isEqualTo(3);
+    }
+
+    @Order(2)
+    @Test
+    void addSecondTestExpected10(){
+
+        game.roll(7);
+        game.roll(3);
+
+        assertThat(game.score()).isEqualTo(10);
     }
 
     @Order(3)
@@ -62,7 +69,6 @@ class GameTest {
         game.roll(5);
         game.roll(5);
         game.roll(5);
-
 
     assertThat(game.score()).isEqualTo(15);
     }

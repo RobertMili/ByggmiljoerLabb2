@@ -1,55 +1,58 @@
 package com.example.BowlingGame;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 public class Game {
-    private final int bonus = 10;
-    private static int savingScore = 0;
-    private static int[] rolling = new int[0];
-
+    private final int STRIKE = 10;
+    private final int SPARE = 10;
+    private int extraRoll = 0;
+    private static int cleaningScore = 0;
+    private static int total = 0;
     static List<Integer> scoreList = new ArrayList<>();
-    static HashMap<Integer,Integer> counter = new HashMap<>();
+
     static  int count = 0;
 
     public static void main(String[] args) {
 
-
+        roll(1);
+        roll(1);
     }
 
     static void roll(int knockedPins) {
-
-
+        int savingScore = 0;
         scoreList.add(knockedPins);
         count++;
-
-
-        savingScore = scoreList.stream().mapToInt(Integer::intValue).sum();
-
+        cleaningScore = scoreList.stream().mapToInt(Integer::intValue).sum();
 
 
         if (count < 19) {
             if (scoreList.size() == 2) {
+
                 scoreList.clear();
+
+
             }
         } else if (count >= 19 && count <= 21){
             if (scoreList.size() == 3) {
                 scoreList.clear();
             }
         } else if (count > 21){
-            System.out.println("Game is Over");
-            scoreList.clear();
-            savingScore = 0;
+            checkOver21PrintOutGameOver();
         }
 
 
         score();
     }
 
+    private static void checkOver21PrintOutGameOver() {
+        System.out.println("Game is Over");
+        scoreList.clear();
+        cleaningScore = 0;
+    }
+
     static int score() {
-        return savingScore;
+        System.out.println(cleaningScore);
+        return cleaningScore;
     }
 }
