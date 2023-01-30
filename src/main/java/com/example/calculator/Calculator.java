@@ -13,17 +13,17 @@ public class Calculator {
     public static int Add(String numbers) {
         List<String> numberList = new ArrayList<>();
         List<String> newList;
+        List<String> list;
         int result;
 
             numberList.add(numbers);
-
             negativeNumbers(numbers);
 
-            List<String> list = cleaningToNumbers(numberList);
+                list = cleaningToNumbers(numberList);
 
-            newList = getStringsAvoidImmutableString(list);
+                    newList = getStringsAvoidImmutableString(list);
 
-            removingEmptyCharAfterRegexCleaning(newList);
+                removingEmptyCharAfterRegexCleaning(newList);
 
             result = getNumbersUnder1000AndSum(newList);
 
