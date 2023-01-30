@@ -11,24 +11,21 @@ public class Calculator {
     }
 
     public static int Add(String numbers) {
-
         List<String> numberList = new ArrayList<>();
         List<String> newList;
-
         int result;
 
-        numberList.add(numbers);
+            numberList.add(numbers);
 
-        negativeNumbers(numbers);
+            negativeNumbers(numbers);
 
-        List<String> list = cleaningToNumbers(numberList);
+            List<String> list = cleaningToNumbers(numberList);
 
-        newList = getStringsAvoidImmutableString(list);
+            newList = getStringsAvoidImmutableString(list);
 
-        removingEmptyCharAfterRegexCleaning(newList);
+            removingEmptyCharAfterRegexCleaning(newList);
 
-        result = getNumbersUnder1000AndSum(newList);
-
+            result = getNumbersUnder1000AndSum(newList);
 
         return result;
     }
@@ -42,9 +39,9 @@ public class Calculator {
     private static int getNumbersUnder1000AndSum(List<String> newList) {
         int result;
         result = newList.stream()
-               .filter(s -> Integer.parseInt(s) <= 1000)
-               .mapToInt(Integer::parseInt)
-               .sum();
+                .filter(s -> Integer.parseInt(s) <= 1000)
+                .mapToInt(Integer::parseInt)
+                .sum();
         return result;
     }
 
