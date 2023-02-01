@@ -2,11 +2,11 @@ package com.example.calculator;
 
 
 import java.util.*;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Calculator {
-
-    
 
     int Add(String numbers) {
         List<String> numberList = new ArrayList<>();
@@ -49,18 +49,9 @@ public class Calculator {
 
     private List<String> cleaningToNumbers(List<String> numberList) {
         return numberList.stream()
-                .flatMap(s -> Arrays.stream(s.split("//")))
-                .flatMap(s -> Arrays.stream(s.split("/")))
-                .flatMap(s -> Arrays.stream(s.split(",")))
-                .flatMap(s -> Arrays.stream(s.split("\n")))
-                .flatMap(s -> Arrays.stream(s.split(";")))
-                .flatMap(s -> Arrays.stream(s.split("\\[")))
-                .flatMap(s -> Arrays.stream(s.split("]")))
-                .flatMap(s -> Arrays.stream(s.split("[*]")))
-                .flatMap(s -> Arrays.stream(s.split("%")))
-                .flatMap(s -> Arrays.stream(s.split("[a-z]")))
-                .flatMap(s -> Arrays.stream(s.split("\\\\")))
-                .toList();
+                .flatMap(s -> Pattern.compile("[^0-9]+").splitAsStream(s))
+                .filter(s -> !s.isEmpty())
+                .collect(Collectors.toList());
 
     }
 

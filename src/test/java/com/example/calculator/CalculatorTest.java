@@ -81,7 +81,23 @@ class CalculatorTest {
     }
     @Test
     void multipleDelimitersWithLongerThenOneCharacter(){
-        var result = calculator.Add("//[***][%%%]\\n1***2%%%3");
+        var result = calculator.Add("//[***][%&%]\\n1***2%%%3");
+
+        assertThat(result).isEqualTo(6);
+    }
+    @Test
+    void test(){
+        var result = calculator.Add("//[a2b]\n1a2b2a2b3");
+
+        assertThat(result).isEqualTo(12);
+    }
+    @Test
+    void crash(){
+        var result = calculator.Add("""
+                1,2
+                3
+                ,
+                """);
 
         assertThat(result).isEqualTo(6);
     }
