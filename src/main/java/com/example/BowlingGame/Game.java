@@ -1,58 +1,35 @@
 package com.example.BowlingGame;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Game {
-    private final int STRIKE = 10;
-    private final int SPARE = 10;
-    private int extraRoll = 0;
-    private static int cleaningScore = 0;
-    private static int total = 0;
-    static List<Integer> scoreList = new ArrayList<>();
+    int[] rolls;
+    int count;
 
-    static  int count = 0;
-
-    public static void main(String[] args) {
-
-        roll(1);
-        roll(1);
+    public Game(){
+        this.rolls = new int[21];
     }
 
-    static void roll(int knockedPins) {
-        int savingScore = 0;
-        scoreList.add(knockedPins);
-        count++;
-        cleaningScore = scoreList.stream().mapToInt(Integer::intValue).sum();
+    void roll(int knockedPins) {
+        rolls[count++] = knockedPins;
 
+    }
 
-        if (count < 19) {
-            if (scoreList.size() == 2) {
+    int score() {
+        int score = 0;
+        int frame =0;
 
-                scoreList.clear();
+        for (int i = 0; i < 10; i++) {
 
-
-            }
-        } else if (count >= 19 && count <= 21){
-            if (scoreList.size() == 3) {
-                scoreList.clear();
-            }
-        } else if (count > 21){
-            checkOver21PrintOutGameOver();
+            score += getRollsSum
+                    (frame);
+            frame += 2;
         }
 
-
-        score();
+        return score;
     }
 
-    private static void checkOver21PrintOutGameOver() {
-        System.out.println("Game is Over");
-        scoreList.clear();
-        cleaningScore = 0;
+    private int getRollsSum(int frame) {
+        return rolls[frame] + rolls[frame + 1];
     }
 
-    static int score() {
-        System.out.println(cleaningScore);
-        return cleaningScore;
-    }
+
 }

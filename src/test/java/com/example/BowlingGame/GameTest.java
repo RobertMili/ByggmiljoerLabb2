@@ -19,68 +19,32 @@ class GameTest {
             game.roll(pins);
         }
     }
-
-
     @Order(1)
     @Test
-    void addFirstTestExpected7(){
+    void addPointsExpected0(){
+        fullGame(21,0);
 
-        game.roll(1);
-        game.roll(2);
-
-        assertThat(game.score()).isEqualTo(3);
+        assertThat(game.score()).isZero();
     }
-
     @Order(2)
     @Test
-    void addSecondTestExpected10(){
+    void addTwoPointsExpected3() {
+        game.roll(1);
+        game.roll(2);
+        fullGame(19, 0);
 
-        game.roll(7);
-        game.roll(3);
-
-        assertThat(game.score()).isEqualTo(10);
+        assertThat(game.score()).isEqualTo(3);
     }
 
     @Order(3)
     @Test
-    void addThirdTestExpected3(){
-
+    void addThreePointsExpected6() {
         game.roll(1);
         game.roll(2);
+        game.roll(3);
+        fullGame(18, 0);
 
-        assertThat(game.score()).isEqualTo(3);
+        assertThat(game.score()).isEqualTo(6);
     }
-    @Order(4)
-    @Test
-    void addThatTheLastRollShouldBeThreeTimesRollExpected15(){
-
-        game.roll(1);
-        game.roll(2);
-        game.roll(1);
-        game.roll(2);
-        game.roll(1);
-        game.roll(2);
-        game.roll(1);
-        game.roll(2);
-        game.roll(1);
-        game.roll(2);
-        game.roll(5);
-        game.roll(5);
-        game.roll(5);
-        game.roll(5);
-        game.roll(5);
-
-    assertThat(game.score()).isEqualTo(15);
-    }
-    @Order(5)
-    @Test
-    void checkIfIsGameOver(){
-
-        game.roll(1);
-        game.roll(2);
-
-        assertThat(game.score()).isEqualTo(0);
-    }
-
 
 }
