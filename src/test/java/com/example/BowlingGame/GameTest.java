@@ -47,7 +47,7 @@ class GameTest {
     }
     @Order(4)
     @Test
-    void addStrikeToGetBonusPoints(){
+    void addStrikeToGetBonusPointsExpected24(){
         game.roll(10);
         game.roll(3);
         game.roll(4);
@@ -57,7 +57,7 @@ class GameTest {
     }
     @Order(5)
     @Test
-    void addSpareToGetBonusPoints(){
+    void addSpareToGetBonusPointsExpected16(){
         game.roll(5);
         game.roll(5);
         game.roll(3);
@@ -66,5 +66,13 @@ class GameTest {
         assertThat(game.score()).isEqualTo(16);
     }
 
+    @Order(5)
+    @Test
+    void addAllStrikeExpectedResult300(){
+
+        rollGame(12,10);
+
+        assertThat(game.score()).isEqualTo(300);
+    }
 
 }
