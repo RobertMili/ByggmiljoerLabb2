@@ -55,5 +55,16 @@ class GameTest {
 
         assertThat(game.score()).isEqualTo(24);
     }
+    @Order(5)
+    @Test
+    void addSpareToGetBonusPoints(){
+        game.roll(5);
+        game.roll(5);
+        game.roll(3);
+        rollGame(17,0);
+
+        assertThat(game.score()).isEqualTo(16);
+    }
+
 
 }
