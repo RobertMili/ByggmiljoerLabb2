@@ -1,6 +1,5 @@
 package com.example.BowlingGame;
 
-import org.junit.FixMethodOrder;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -14,7 +13,7 @@ class GameTest {
 
     Game game = new Game();
 
-    private void fullGame(int rolls, int pins){
+    private void rollGame(int rolls, int pins){
         for (int i = 0; i <rolls; i++) {
             game.roll(pins);
         }
@@ -22,7 +21,7 @@ class GameTest {
     @Order(1)
     @Test
     void addPointsExpected0(){
-        fullGame(21,0);
+        rollGame(21,0);
 
         assertThat(game.score()).isZero();
     }
@@ -31,7 +30,7 @@ class GameTest {
     void addTwoPointsExpected3() {
         game.roll(1);
         game.roll(2);
-        fullGame(19, 0);
+        rollGame(19, 0);
 
         assertThat(game.score()).isEqualTo(3);
     }
@@ -42,9 +41,19 @@ class GameTest {
         game.roll(1);
         game.roll(2);
         game.roll(3);
-        fullGame(18, 0);
+        rollGame(18, 0);
 
         assertThat(game.score()).isEqualTo(6);
+    }
+    @Order(4)
+    @Test
+    void addStrikeToGetBonusPoints(){
+        game.roll(10);
+        game.roll(3);
+        game.roll(4);
+        rollGame(16,0);
+
+        assertThat(game.score()).isEqualTo(24);
     }
 
 }

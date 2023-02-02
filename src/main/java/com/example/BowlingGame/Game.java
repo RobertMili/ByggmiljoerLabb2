@@ -19,12 +19,24 @@ public class Game {
 
         for (int i = 0; i < 10; i++) {
 
+            if (getStrike(frame)) {
+                score += 10 + getBonusOfStrike(frame);
+                frame++;
+            }
             score += getRollsSum
                     (frame);
             frame += 2;
         }
 
         return score;
+    }
+
+    private int getBonusOfStrike(int frame) {
+        return getRollsSum(frame +1);
+    }
+
+    private boolean getStrike(int frame) {
+        return rolls[frame] == 10;
     }
 
     private int getRollsSum(int frame) {
